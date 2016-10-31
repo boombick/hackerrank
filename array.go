@@ -1,20 +1,20 @@
 package main // Read from standard input
 import (
 	"bufio"
+	"fmt"
 	"io"
-	"log"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	// Read all data from stdin, passing the data as parts into the channel
-	// for processing.
-	parts := 0
-	//isSpace := false
 	var cntStr string
-	//var arItem string
+	var arItem string
+	var curIndex int
+
+	parts := 0
 
 	for {
 		cnt := make([]byte, 1)
@@ -27,22 +27,26 @@ func main() {
 	}
 
 	arIndex, _ := strconv.Atoi(cntStr)
-	var finArray []int
-	finArray = make([]int, arIndex)
+	var finArray []string
+	finArray = make([]string, arIndex)
 
 	for {
+
 		data := make([]byte, 1)
 		_, err := reader.Read(data)
 
-		if err == io.EOF {
-			break
-		} else if err != nil {
-			log.Fatalf("Problems reading from input: %s", err)
+		if string(data) == " " || err == io.EOF {
+			parts++ // increment counter
+			// make integer and put it into end of slice
+			curIndex = arIndex - parts
+			finArray[curIndex] = arItem
+			arItem = ""
+			if err == io.EOF {
+				break
+			}
+		} else {
+			arItem = arItem + string(data)
 		}
-		parts++
-
-		//if data == " "
 	}
-	log.Print(finArray)
-	log.Print(finArray)
+	fmt.Println(strings.Join(finArray, " "))
 }
