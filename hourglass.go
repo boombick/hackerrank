@@ -18,6 +18,7 @@ func countHG(ar [][]string, x int, y int) int {
 
 	for i := 0; i < 3; i++ { // vertical dimension loop
 		for j := 0; j < 3; j++ { // horizontal dimension loop
+			fmt.Printf("X: %d Y: %d\n", x, y)
 			t, _ = strconv.Atoi(ar[x][y])
 			result = result + t
 			y++
@@ -30,7 +31,6 @@ func countHG(ar [][]string, x int, y int) int {
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	var arStr string
-	var curResult int
 	finalAr := make([][]string, 6)
 
 	cnt := make([]byte, 256)
@@ -43,16 +43,14 @@ func main() {
 		finalAr[i] = strings.Split(t1[i], " ")
 	}
 
-	fmt.Printf("RES: %#v", finalAr)
+	//fmt.Printf("RES: %#v", finalAr)
 	offsetX := 0
 	offsetY := 0
+	curResult := 0
 	maxSum := 0 // current maximum hourglass value
+	// curResult = countHG(finalAr, offsetX, offsetY)
 	// proceed glasses
-	for i := 0; i < 6; i++ { // x-dimension loop
-		for j := 0; j < 6; j++ { // y-dimension loop
 
-		}
-	}
 }
 
 /*
