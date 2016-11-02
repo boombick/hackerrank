@@ -4,22 +4,27 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
 func countHG(ar [][]string, x int, y int) int {
 	// x must be less than 6 -2 -> must be less than 4
-	var result int
+	result := 0
+	var t int
 	if x >= 4 || y >= 4 {
-		return 0
+		return result
 	}
 
-	for i := 0; i < 3; i++ {
-		for j := 0; j < 3; j++ {
-
+	for i := 0; i < 3; i++ { // vertical dimension loop
+		for j := 0; j < 3; j++ { // horizontal dimension loop
+			t, _ = strconv.Atoi(ar[x][y])
+			result = result + t
+			y++
 		}
 		x++
 	}
+	return result
 }
 
 func main() {
@@ -49,3 +54,13 @@ func main() {
 		}
 	}
 }
+
+/*
+echo -ne "1 1 1 0 0 0
+0 1 0 0 0 0
+1 1 1 0 -9 0
+0 0 -1 0 0 0
+0 0 0 0 -2 0
+0 0 0 0 0 4
+" | ./bin/hourglass
+*/
