@@ -18,11 +18,13 @@ func countHG(ar [][]string, x int, y int) int {
 	m = y
 	for i := 0; i < 3; i++ { // vertical dimension loop
 		for j := 0; j < 3; j++ { // horizontal dimension loop
-			fmt.Printf("X: %d Y: %d\n", x, y)
-			t, _ = strconv.Atoi(ar[x][y])
-			result = result + t
+			fmt.Printf("X: %d Y: %d M: %d VAL: %s\n", x, y, m, ar[x][y])
+			if j == 1 {
+				t, _ = strconv.Atoi(ar[x][y])
+				result = result + t
+			}
 			y++
-			if y == m+2 {
+			if y == m+3 {
 				y = m
 			}
 		}
@@ -50,16 +52,20 @@ func main() {
 	//offsetX := 0
 	//offsetY := 0
 	curResult := 0
-	//maxSum := 0 // current maximum hourglass value
+	maxSum := 0 // current maximum hourglass value
 	// curResult = countHG(finalAr, offsetX, offsetY)
 	// proceed glasses
 	for k := 0; k < 6; k++ {
 		for i, j := range finalAr[k] {
 			curResult = countHG(finalAr, k, i)
+			fmt.Printf("Cur result is %d Max sum id %d\n", curResult, maxSum)
 			fmt.Printf("==> I: %d J: %s\n", i, j)
+			if curResult > maxSum {
+				maxSum = curResult
+			}
 		}
 	}
-	fmt.Println(curResult)
+	fmt.Printf("Result is: %d", maxSum)
 }
 
 /*
