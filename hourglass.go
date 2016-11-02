@@ -44,13 +44,19 @@ func main() {
 	}
 
 	//fmt.Printf("RES: %#v", finalAr)
-	offsetX := 0
-	offsetY := 0
+	//offsetX := 0
+	//offsetY := 0
 	curResult := 0
-	maxSum := 0 // current maximum hourglass value
+	//maxSum := 0 // current maximum hourglass value
 	// curResult = countHG(finalAr, offsetX, offsetY)
 	// proceed glasses
-
+	for k, v := range finalAr {
+		for i, j := range v {
+			curResult = countHG(finalAr, k, i)
+			fmt.Printf("I: %d J: %s\n", i, j)
+		}
+	}
+	fmt.Println(curResult)
 }
 
 /*
