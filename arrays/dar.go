@@ -3,53 +3,49 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"os"
 	"strconv"
+	"strings"
 )
 
+func trimSuffix(s, suffix string) string {
+	if strings.HasSuffix(s, suffix) {
+		s = s[:len(s)-len(suffix)]
+	}
+	return s
+}
+
 func main() {
+	var line string
+	var lineSlice []string
+	lastAns := 0
+	var querySeqPosition, x, y int
+	var lenSeq int
 	reader := bufio.NewReader(os.Stdin)
-	isFirstLine := true
-	symbolCounter := 1 // it means first
-	var typeOfQuery int
-	for {
 
-		data := make([]byte, 1)
-		_, err := reader.Read(data)
-		if err == io.EOF {
-			break
+	firstLine, _ := reader.ReadString('\n')
+	firstLineSlice := strings.Split(trimSuffix(firstLine, "\n"), " ")
+
+	seqSize, _ := strconv.Atoi(firstLineSlice[0])
+	loopCounter, _ := strconv.Atoi(firstLineSlice[1])
+	seqList := make([][]int, seqSize)
+
+	for i := 1; i <= loopCounter; i++ {
+		line, _ = reader.ReadString('\n')
+		lineSlice = strings.Split(trimSuffix(line, "\n"), " ")
+		x, _ = strconv.Atoi(lineSlice[1])
+		y, _ = strconv.Atoi(lineSlice[2])
+		querySeqPosition = (x ^ lastAns) % seqSize
+
+		switch lineSlice[0] {
+		case "1":
+			seqList[querySeqPosition] = append(seqList[querySeqPosition], y)
+		case "2":
+			lenSeq = len(seqList[querySeqPosition])
+			lastAns = seqList[querySeqPosition][y%lenSeq]
+			fmt.Println(lastAns)
+		default:
+			panic("Very strange value")
 		}
-
-		if isFirstLine { // first line logic
-			if string(data) == " " {
-				continue
-			} else if string(data) == "\n" {
-				isFirstLine = false
-				symbolCounter = 1
-			} else {
-				switch symbolCounter {
-				case 1:
-					countSeq, _ := strconv.Atoi(string(data))
-					seqStore := make([][]string, countSeq)
-				default:
-					continue
-				}
-				fmt.Printf("FIRST_LINE => %s\n", string(data))
-			}
-		} else { // other lines logic
-			if string(data) == " " {
-				continue
-
-			} else if string(data) == "\n" {
-				symbolCounter = 1
-			} else {
-				switch symbolCounter {
-				case 1: // type of query
-				}
-				fmt.Printf("%s", string(data))
-			}
-		}
-		symbolCounter++
 	}
 }
