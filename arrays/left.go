@@ -1,7 +1,7 @@
 package main
 
 
-// Left shift arrays
+// Left shift arrays -- hackerrank
 func main() {
 
 }
