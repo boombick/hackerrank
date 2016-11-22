@@ -28,6 +28,7 @@ func main() {
 
 	currentIndex := sliceSize - countLoop
 	finalSlice := make([]string, sliceSize)
+	fmt.Printf("count loop is %d\n", countLoop)
 	for i := 1; i <= sliceSize; i++ {
 		line, _ := reader.ReadString(' ')
 		line = strings.Trim(line, " \n")
