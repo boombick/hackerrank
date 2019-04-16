@@ -7,7 +7,11 @@ import os
 
 # Complete the breakingRecords function below.
 def big_sum(scores):
+    sum_result = 0
+    for x in ar:
+        sum_result+=x
 
+    return sum_result
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
