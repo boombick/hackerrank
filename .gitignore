@@ -1,3 +1,5 @@
 result
 bin
 .build
+.idea
+result.txt
